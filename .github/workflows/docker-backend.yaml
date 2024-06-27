@@ -13,6 +13,7 @@ env:
   DOTNET_WORKING_DIRECTORY: "./src/dotnet/backend/FleetAPI"
   DOCKER_IMAGE_NAME: "fleetops-backend"
   DOCKER_WORKING_DIRECTORY: "./src/dotnet/backend"
+  TERRAFORM_WORKING_DIRECTORY: "./src/terraform/k8s"
 
 jobs:
 
@@ -87,7 +88,7 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.TERRAFORM_ARM_CLIENT_SECRET }}
         TF_VAR_application_name: ${{ vars.APPLICATION_NAME }}
         TF_VAR_environment_name: ${{ vars.ENVIRONMENT_NAME }}
-      working-directory: ./src/terraform
+      working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
       run: |
         terraform init \
           -backend-config="resource_group_name=${{ vars.BACKEND_RESOURCE_GROUP_NAME }}" \
