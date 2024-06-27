@@ -1,6 +1,6 @@
 source "azure-arm" "vm" {
   
-  subscription_id = var.arm_subscription_id
+  
   
 
   image_offer     = "0001-com-ubuntu-server-jammy"
