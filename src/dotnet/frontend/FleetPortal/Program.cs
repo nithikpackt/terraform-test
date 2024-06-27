@@ -3,25 +3,20 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
-builder.Services.AddLogging(builder =>
-{
-    builder.AddConsole();
-    builder.AddDebug();
-});
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton(sp => 
+builder.Services.AddSingleton<FleetPortalBackendConfig>(sp => 
 {
-    var backendEndpoint = System.Environment.GetEnvironmentVariable("DOTNET_BACKEND_ENDPOINT");
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var backendEndpoint = configuration.GetValue<string>("BackendEndpoint");
 
     return new FleetPortalBackendConfig()
     {

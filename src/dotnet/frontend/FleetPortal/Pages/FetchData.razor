@@ -40,18 +40,12 @@ else
         </tbody>
     </table>
 }
-<p>Message: @errorMessage</p>
 
 @code {
     private WeatherForecast[]? forecasts;
-    private string errorMessage = "";
 
     protected override async Task OnInitializedAsync()
     {
-        var envVarValue = System.Environment.GetEnvironmentVariable("DOTNET_BACKEND_ENDPOINT");
-        errorMessage = $"INJECTED:{BackendConfig.Endpoint}";
-        errorMessage += $"ENVVAR:{envVarValue}";
-
         var client = new FleetAPIClient(BackendConfig.Endpoint, HttpClient);
         var result = await client.GetWeatherForecastAsync();
         forecasts = result.ToArray();
