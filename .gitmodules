@@ -1,0 +1,3 @@
+[submodule "src/test/submodule"]
+	path = src/test/submodule
+	url = https://github.com/nithikpackt/scdbook-e2e.git
